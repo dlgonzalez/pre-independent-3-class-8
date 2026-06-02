@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Independent 3 | Class 8: The Final Frontier</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Outfit:wght@400;700;900&display=swap');
+        
+        body { font-family: 'Inter', sans-serif; background-color: #020617; color: #f8fafc; scroll-behavior: smooth; }
+        .font-display { font-family: 'Outfit', sans-serif; }
+
+        .app-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at center, #0f172a 0%, #020617 100%); pointer-events: none; }
+        
+        /* Starscape Animation */
+        .stars { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background: transparent; }
+        .stars::after { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: radial-gradient(2px 2px at 20px 30px, #e2e8f0, rgba(0,0,0,0)), radial-gradient(2px 2px at 40px 70px, #ffffff, rgba(0,0,0,0)), radial-gradient(2px 2px at 50px 160px, #cbd5e1, rgba(0,0,0,0)), radial-gradient(2px 2px at 90px 40px, #ffffff, rgba(0,0,0,0)), radial-gradient(2px 2px at 130px 80px, #ffffff, rgba(0,0,0,0)), radial-gradient(2px 2px at 160px 120px, #e2e8f0, rgba(0,0,0,0)); background-repeat: repeat; background-size: 200px 200px; opacity: 0.2; animation: moveStars 60s linear infinite; }
+        @keyframes moveStars { from { transform: translateY(0); } to { transform: translateY(-200px); } }
+
+        .glass-panel { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(16px); border: 1px solid rgba(6, 182, 212, 0.15); box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.7); }
+        .nav-item { transition: all 0.2s ease-in-out; position: relative; color: #94a3b8; }
+        .nav-item:hover { color: #f8fafc; background: rgba(6, 182, 212, 0.1); }
+        .nav-item.active { background-color: rgba(6, 182, 212, 0.15); color: #22d3ee; font-weight: 700; border-right: 3px solid #06b6d4; }
+
+        .section-content { display: none; animation: fadeIn 0.4s ease-out forwards; }
+        .section-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        .btn-primary { background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: white; transition: all 0.15s ease; box-shadow: 0 4px 15px -3px rgba(6, 182, 212, 0.4); border: none; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px -3px rgba(6, 182, 212, 0.5); }
+        .btn-primary:active { transform: scale(0.98); }
+
+        .btn-secondary { background: linear-gradient(135deg, #d946ef 0%, #c026d3 100%); color: white; transition: all 0.15s ease; box-shadow: 0 4px 15px -3px rgba(217, 70, 239, 0.4); border: none; }
+        .btn-secondary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px -3px rgba(217, 70, 239, 0.5); }
+        .btn-secondary:active { transform: scale(0.98); }
+
+        .card-dark { background: #0f172a; border: 1px solid #1e293b; border-radius: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3); }
+        .card-glow { transition: all 0.3s; }
+        .card-glow:hover { box-shadow: 0 10px 25px -5px rgba(6, 182, 212, 0.15); border-color: #06b6d4; }
+
+        .input-dark { background: #1e293b; border: 1px solid #334155; color: #f8fafc; border-radius: 0.75rem; padding: 0.75rem 1rem; width: 100%; transition: all 0.2s; outline: none; }
+        .input-dark:focus { border-color: #22d3ee; box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.2); }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        @keyframes floatUp { 0% { opacity: 1; transform: translate(-50%, -50%) scale(0.5); } 50% { transform: translate(-50%, -100px) scale(1.2); } 100% { opacity: 0; transform: translate(-50%, -150px) scale(1); } }
+        
+        .mcq-opt { transition: all 0.2s; cursor: pointer; border: 2px solid #334155; background: #1e293b; color: #e2e8f0; }
+        .mcq-opt:hover { border-color: #06b6d4; background: rgba(6, 182, 212, 0.1); }
+        .mcq-opt.selected { border-color: #06b6d4; background: rgba(6, 182, 212, 0.2); color: #67e8f9; font-weight: bold; }
+        .mcq-opt.correct { border-color: #10b981; background: rgba(16, 185, 129, 0.2); color: #34d399; font-weight: bold; }
+        .mcq-opt.wrong { border-color: #ef4444; background: rgba(239, 68, 68, 0.2); color: #f87171; font-weight: bold; }
+    </style>
+</head>
+<body class="h-screen flex overflow-hidden">
+
+    <div class="app-bg"></div>
+    <div class="stars"></div>
+
+    <div id="toast" class="fixed bottom-5 right-5 text-white px-6 py-3 rounded-xl shadow-2xl font-bold transform translate-y-20 opacity-0 transition-all duration-300 z-50 flex items-center gap-2 border border-white/20 backdrop-blur-md">
+        <i id="toast-icon" class="fa-solid fa-info-circle"></i> <span id="toast-msg">Notification</span>
+    </div>
+
+    <aside class="w-72 glass-panel flex flex-col justify-between hidden md:flex z-20 relative">
+        <div>
+            <div class="p-6 border-b border-slate-700/50">
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="bg-cyan-500 text-slate-900 text-[10px] font-black px-2 py-0.5 rounded uppercase tracking-wider">B1+</span>
+                    <span class="text-[10px] font-bold text-slate-400 tracking-widest uppercase">Unit 8 Wrap-up</span>
+                </div>
+                <h1 class="text-xl font-black text-white flex items-center gap-2 font-display mt-2">
+                    <i class="fa-solid fa-satellite-dish text-cyan-400"></i> Class 8
+                </h1>
+                <p class="text-xs text-cyan-300 mt-1 font-semibold">The Final Frontier</p>
+            </div>
+            <nav class="mt-4 flex flex-col gap-1 px-2 overflow-y-auto max-h-[calc(100vh-200px)] custom-scrollbar">
+                <button class="nav-item active text-left px-4 py-3 text-sm flex items-center gap-3 rounded-lg" data-target="sec-overview"><i class="fa-solid fa-bullseye w-4 text-center"></i> Overview & Agenda</button>
+                <button class="nav-item text-left px-4 py-3 text-sm flex items-center gap-3 rounded-lg" data-target="sec-review"><i class="fa-solid fa-comments w-4 text-center"></i> Indirect Qs Review</button>
+                <button class="nav-item text-left px-4 py-3 text-sm flex items-center gap-3 rounded-lg" data-target="sec-roleplay"><i class="fa-solid fa-masks-theater w-4 text-center"></i> Speaking Roleplay</button>
+                <button class="nav-item text-left px-4 py-3 text-sm flex items-center gap-3 rounded-lg" data-target="sec-interview"><i class="fa-solid fa-user-astronaut w-4 text-center"></i> The Neil Armstrong Interview</button>
+                <button class="nav-item text-left px-4 py-3 text-sm flex items-center gap-3 rounded-lg" data-target="sec-listening"><i class="fa-solid fa-headphones w-4 text-center"></i> TED-Ed Listening</button>
+                <button class="nav-item text-left px-4 py-3 text-sm flex items-center gap-3 rounded-lg" data-target="sec-presentation"><i class="fa-solid fa-chalkboard-user w-4 text-center"></i> Oral Presentation Planner</button>
+                <button class="nav-item text-left px-4 py-3 text-sm flex items-center gap-3 rounded-lg font-semibold text-fuchsia-400 bg-fuchsia-900/20 border border-fuchsia-500/30 mt-2" data-target="sec-final"><i class="fa-solid fa-flag-checkered text-fuchsia-400 w-4 text-center"></i> The Final Arena</button>
+            </nav>
+        </div>
+        <div class="p-6 border-t border-slate-700/50 bg-slate-900/50">
+            <div class="bg-slate-950 rounded-xl p-4 border border-slate-800 text-center shadow-inner relative">
+                <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-1">Class XP</p>
+                <div class="text-3xl font-black text-white flex justify-center items-center gap-2 font-display">
+                    <i class="fa-solid fa-star text-amber-400"></i> <span id="xp-counter">0</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col h-full overflow-y-auto relative custom-scrollbar">
+        
+        <header class="md:hidden glass-panel p-4 border-b border-slate-700 flex justify-between items-center sticky top-0 z-30">
+            <h1 class="font-black text-lg text-white font-display"><i class="fa-solid fa-satellite-dish text-cyan-400"></i> Class 8</h1>
+            <div class="flex items-center gap-2 font-black text-white">
+                <i class="fa-solid fa-star text-amber-400"></i> <span id="xp-counter-mobile">0</span>
+            </div>
+        </header>
+
+        <div class="p-4 md:p-8 lg:p-12 max-w-5xl mx-auto w-full pb-24" id="content-container">
+            
+            <section id="sec-overview" class="section-content active">
+                <div class="mb-8">
+                    <span class="bg-cyan-500/20 text-cyan-400 text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border border-cyan-500/30 shadow-sm">Phase 0: Liftoff</span>
+                    <h2 class="text-4xl lg:text-5xl font-black mt-5 mb-3 tracking-tight text-white font-display">The Final Frontier 🚀</h2>
+                    <p class="text-slate-400 text-lg font-medium leading-relaxed max-w-3xl">Welcome to the Unit 8 wrap-up! Today is all about production. You will refine your indirect questions, interview a historical AI figure, practice listening with TED-Ed, and design a full oral presentation about space exploration.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-10">
+                    <div class="card-dark p-8 card-glow border-t-4 border-t-cyan-500">
+                        <div class="w-14 h-14 bg-cyan-900/40 text-cyan-400 rounded-2xl flex items-center justify-center text-2xl mb-6 border border-cyan-500/30"><i class="fa-solid fa-bullseye"></i></div>
+                        <h3 class="text-2xl font-black text-white mb-4 font-display">Class Objectives</h3>
+                        <ul class="space-y-4 text-slate-300 text-sm font-medium">
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-check text-emerald-400 mt-1"></i> <span><strong>Grammar:</strong> Flawlessly write and speak <em>Indirect Questions</em> in formal and complex dialogues.</span></li>
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-check text-emerald-400 mt-1"></i> <span><strong>Speaking:</strong> Roleplay creative space scenarios using polite inquiries and past modals.</span></li>
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-check text-emerald-400 mt-1"></i> <span><strong>Listening:</strong> Comprehend a high-level TED-Ed video about the International Space Station.</span></li>
+                            <li class="flex items-start gap-3"><i class="fa-solid fa-check text-emerald-400 mt-1"></i> <span><strong>Presentation:</strong> Structure and outline a formal oral presentation about a space topic.</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-slate-900 text-white p-8 rounded-3xl shadow-xl relative overflow-hidden border border-slate-800">
+                        <div class="absolute -right-6 -bottom-6 opacity-10"><i class="fa-solid fa-shuttle-space text-9xl"></i></div>
+                        <div class="w-14 h-14 bg-slate-950 text-slate-300 rounded-2xl flex items-center justify-center text-2xl mb-6 relative z-10 border border-slate-800"><i class="fa-solid fa-list-check"></i></div>
+                        <h3 class="text-2xl font-black mb-4 font-display relative z-10">Mission Agenda</h3>
+                        <div class="space-y-4 relative z-10 text-sm font-medium">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                                <span class="text-cyan-400">1. Indirect Questions Review</span>
+                                <span class="text-[10px] font-bold text-slate-500 bg-slate-950 px-2 py-1 rounded tracking-widest uppercase">15 mins</span>
+                            </div>
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                                <span class="text-fuchsia-400">2. Speaking Roleplay</span>
+                                <span class="text-[10px] font-bold text-slate-500 bg-slate-950 px-2 py-1 rounded tracking-widest uppercase">15 mins</span>
+                            </div>
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                                <span class="text-blue-400">3. Neil Armstrong AI Interview</span>
+                                <span class="text-[10px] font-bold text-slate-500 bg-slate-950 px-2 py-1 rounded tracking-widest uppercase">15 mins</span>
+                            </div>
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                                <span class="text-emerald-400">4. TED-Ed Listening Practice</span>
+                                <span class="text-[10px] font-bold text-slate-500 bg-slate-950 px-2 py-1 rounded tracking-widest uppercase">15 mins</span>
+                            </div>
+                            <div class="flex items-center justify-between pb-2">
+                                <span class="text-amber-400">5. Oral Presentation Planner</span>
+                                <span class="text-[10px] font-bold text-slate-500 bg-slate-950 px-2 py-1 rounded tracking-widest uppercase">30 mins</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-10">
+                    <button onclick="navigateTo('sec-review');" class="btn-primary py-4 px-10 rounded-xl font-black text-lg">Initiate Sequence <i class="fa-solid fa-power-off ml-2"></i></button>
+                </div>
+            </section>
+
+            <section id="sec-review" class="section-content">
+                <div class="mb-8">
+                    <span class="bg-cyan-500/20 text-cyan-400 text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border border-cyan-500/30">Phase 1: Mechanics</span>
+                    <h2 class="text-3xl lg:text-4xl font-black mt-5 mb-3 tracking-tight text-white font-display">Polite Inquiries Review 🧐</h2>
+                    <p class="text-slate-400 text-lg font-medium leading-relaxed max-w-3xl">Let's warm up your grammar. Complete the dialogues below by changing the direct questions into polite, indirect questions. Remember the golden rule: <strong>Subject before Verb!</strong></p>
+                </div>
+
+                <div class="space-y-6 mb-10">
+                    <!-- Dialogue 1 -->
+                    <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-md">
+                        <div class="flex items-center gap-3 mb-4 border-b border-slate-800 pb-3">
+                            <i class="fa-solid fa-ticket text-amber-400 text-xl"></i>
+                            <h3 class="font-bold text-white">Dialogue 1: Space Tourism Agency</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="bg-slate-800/50 p-4 rounded-xl">
+                                <p class="text-xs text-slate-500 uppercase font-bold mb-1">Target Direct Question:</p>
+                                <p class="text-amber-400 font-mono text-sm">"How much does a ticket to the moon cost?"</p>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-8 h-8 rounded-full bg-cyan-900 text-cyan-400 flex items-center justify-center font-bold text-xs flex-shrink-0">T</div>
+                                <div class="w-full">
+                                    <p class="text-slate-300 text-sm mb-2">Hello, I'm interested in space travel. Could you tell me...</p>
+                                    <input type="text" id="dlg1-input" class="input-dark text-sm font-mono" placeholder="Type your indirect question here...">
+                                </div>
+                            </div>
+                            <div class="flex justify-end">
+                                <button onclick="checkDialogue(1, 'how much a ticket to the moon costs')" class="text-xs bg-slate-800 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded transition border border-slate-700">Check Answer</button>
+                            </div>
+                            <div id="dlg1-fb" class="hidden text-sm font-bold p-3 rounded-lg mt-2"></div>
+                        </div>
+                    </div>
+
+                    <!-- Dialogue 2 -->
+                    <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-md">
+                        <div class="flex items-center gap-3 mb-4 border-b border-slate-800 pb-3">
+                            <i class="fa-solid fa-wrench text-fuchsia-400 text-xl"></i>
+                            <h3 class="font-bold text-white">Dialogue 2: Interviewing an Engineer</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="bg-slate-800/50 p-4 rounded-xl">
+                                <p class="text-xs text-slate-500 uppercase font-bold mb-1">Target Direct Question:</p>
+                                <p class="text-fuchsia-400 font-mono text-sm">"Did the spacecraft land safely?"</p>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-8 h-8 rounded-full bg-fuchsia-900 text-fuchsia-400 flex items-center justify-center font-bold text-xs flex-shrink-0">J</div>
+                                <div class="w-full">
+                                    <p class="text-slate-300 text-sm mb-2">The public is very anxious. I was wondering...</p>
+                                    <input type="text" id="dlg2-input" class="input-dark text-sm font-mono" placeholder="Type your indirect question here...">
+                                </div>
+                            </div>
+                            <div class="flex justify-end">
+                                <button onclick="checkDialogue(2, 'if the spacecraft landed safely', 'whether the spacecraft landed safely')" class="text-xs bg-slate-800 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded transition border border-slate-700">Check Answer</button>
+                            </div>
+                            <div id="dlg2-fb" class="hidden text-sm font-bold p-3 rounded-lg mt-2"></div>
+                        </div>
+                    </div>
+
+                    <!-- Dialogue 3 -->
+                    <div class="bg-slate-900 p-6 rounded-2xl border border-slate-800 shadow-md">
+                        <div class="flex items-center gap-3 mb-4 border-b border-slate-800 pb-3">
+                            <i class="fa-solid fa-satellite text-blue-400 text-xl"></i>
+                            <h3 class="font-bold text-white">Dialogue 3: Lost in Orbit</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="bg-slate-800/50 p-4 rounded-xl">
+                                <p class="text-xs text-slate-500 uppercase font-bold mb-1">Target Direct Question:</p>
+                                <p class="text-blue-400 font-mono text-sm">"Where are we?"</p>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-8 h-8 rounded-full bg-blue-900 text-blue-400 flex items-center justify-center font-bold text-xs flex-shrink-0">A</div>
+                                <div class="w-full">
+                                    <p class="text-slate-300 text-sm mb-2">Houston, our navigation system is down. Do you know...</p>
+                                    <input type="text" id="dlg3-input" class="input-dark text-sm font-mono" placeholder="Type your indirect question here...">
+                                </div>
+                            </div>
+                            <div class="flex justify-end">
+                                <button onclick="checkDialogue(3, 'where we are')" class="text-xs bg-slate-800 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded transition border border-slate-700">Check Answer</button>
+                            </div>
+                            <div id="dlg3-fb" class="hidden text-sm font-bold p-3 rounded-lg mt-2"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sec-roleplay" class="section-content">
+                <div class="mb-6">
+                    <span class="bg-fuchsia-500/20 text-fuchsia-400 text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border border-fuchsia-500/30">Phase 2: Output</span>
+                    <h2 class="text-3xl lg:text-4xl font-black mt-4 mb-2 tracking-tight text-white font-display">Galactic Roleplay 🎭</h2>
+                    <p class="text-slate-400 text-lg font-medium">Work with a partner. Choose one of the scenarios below and prepare a 2-minute conversation to present to the class.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6 mb-8">
+                    <!-- Scenario 1 -->
+                    <div class="card-dark p-6 border-t-4 border-t-emerald-500 hover:border-t-emerald-400 transition cursor-pointer" onclick="selectRoleplay(1)">
+                        <div class="text-4xl mb-4">👽</div>
+                        <h3 class="text-lg font-bold text-white mb-2">First Contact</h3>
+                        <p class="text-xs text-slate-400 mb-4 h-16">You are an astronaut meeting an alien for the first time. You want to ask questions about their planet, but you must be extremely polite to avoid starting a war.</p>
+                        <span class="text-xs font-bold text-emerald-400 bg-emerald-900/30 px-2 py-1 rounded">Indirect Questions</span>
+                    </div>
+                    <!-- Scenario 2 -->
+                    <div class="card-dark p-6 border-t-4 border-t-amber-500 hover:border-t-amber-400 transition cursor-pointer" onclick="selectRoleplay(2)">
+                        <div class="text-4xl mb-4">😡</div>
+                        <h3 class="text-lg font-bold text-white mb-2">The Angry Tourist</h3>
+                        <p class="text-xs text-slate-400 mb-4 h-16">You are a passenger on a commercial flight to Mars. The Wi-Fi is broken and the food floats away. Complain to the flight attendant.</p>
+                        <span class="text-xs font-bold text-amber-400 bg-amber-900/30 px-2 py-1 rounded">Complaints & Explanations</span>
+                    </div>
+                    <!-- Scenario 3 -->
+                    <div class="card-dark p-6 border-t-4 border-t-rose-500 hover:border-t-rose-400 transition cursor-pointer" onclick="selectRoleplay(3)">
+                        <div class="text-4xl mb-4">🍕</div>
+                        <h3 class="text-lg font-bold text-white mb-2">The Missing Pizza</h3>
+                        <p class="text-xs text-slate-400 mb-4 h-16">Two astronauts are arguing. Someone ate the last slice of pepperoni pizza on the ISS. Accuse your partner and express regret.</p>
+                        <span class="text-xs font-bold text-rose-400 bg-rose-900/30 px-2 py-1 rounded">Past Modals (Should have)</span>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 p-6 rounded-2xl border border-slate-700 shadow-md">
+                    <h3 class="font-bold text-white mb-4"><i class="fa-solid fa-lightbulb text-amber-400 mr-2"></i> Cheat Sheet: Useful Phrases</h3>
+                    <div class="grid sm:grid-cols-2 gap-4 text-sm">
+                        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+                            <p class="font-bold text-cyan-400 mb-2">Polite Inquiries</p>
+                            <ul class="text-slate-300 space-y-1 list-disc pl-4">
+                                <li>Could you tell me why...</li>
+                                <li>I was wondering if...</li>
+                                <li>Do you have any idea how...</li>
+                            </ul>
+                        </div>
+                        <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+                            <p class="font-bold text-rose-400 mb-2">Regrets & Criticism</p>
+                            <ul class="text-slate-300 space-y-1 list-disc pl-4">
+                                <li>You shouldn't have done that.</li>
+                                <li>I wish I hadn't...</li>
+                                <li>If you had told me, I would have...</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sec-interview" class="section-content">
+                <div class="mb-8">
+                    <span class="bg-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border border-blue-500/30">Phase 3: Writing & Interaction</span>
+                    <h2 class="text-3xl lg:text-4xl font-black mt-5 mb-2 tracking-tight text-white font-display">Interview Neil Armstrong 👨‍🚀</h2>
+                    <p class="text-slate-400 text-lg font-medium leading-relaxed">Prepare 10 questions to ask the first man on the moon. Mix direct questions and polite indirect questions. Once prepared, you will use an AI simulator to conduct the interview!</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <!-- Writing Area -->
+                    <div class="bg-slate-900 p-6 rounded-3xl border border-slate-700 shadow-xl flex flex-col h-full">
+                        <h3 class="font-bold text-white mb-4 border-b border-slate-800 pb-2"><i class="fa-solid fa-pen-nib text-cyan-400 mr-2"></i> Your 10 Questions</h3>
+                        <textarea class="w-full h-64 bg-slate-800 border border-slate-600 rounded-xl p-4 text-sm text-white placeholder-slate-500 focus:border-cyan-400 outline-none resize-none custom-scrollbar flex-1" placeholder="1. Direct: What was your favorite food in space?&#10;2. Indirect: Could you tell me how you felt when you stepped on the moon?&#10;..."></textarea>
+                        <div class="mt-4 flex justify-end">
+                            <button class="text-xs bg-slate-800 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded transition border border-slate-600" onclick="showToast('Questions saved locally!', 'success')"><i class="fa-solid fa-save mr-1"></i> Save Draft</button>
+                        </div>
+                    </div>
+
+                    <!-- AI Portal -->
+                    <div class="bg-gradient-to-br from-slate-900 to-blue-950 p-8 rounded-3xl border border-blue-800/50 shadow-xl flex flex-col justify-center items-center text-center relative overflow-hidden">
+                        <i class="fa-brands fa-bots absolute -right-10 -bottom-10 text-9xl opacity-10 text-blue-500"></i>
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Neil_Armstrong_pose.jpg/800px-Neil_Armstrong_pose.jpg" alt="Neil Armstrong" class="w-24 h-24 rounded-full object-cover mb-4 border-2 border-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.5)]">
+                        <h3 class="text-2xl font-black text-white mb-2 font-display">AI Simulator Portal</h3>
+                        <p class="text-sm text-blue-200 mb-6">Talk to a highly realistic AI simulation of Neil Armstrong. Ask the questions you just prepared.</p>
+                        
+                        <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-700 w-full mb-6 text-left">
+                            <p class="text-xs font-bold text-amber-400 mb-1"><i class="fa-solid fa-triangle-exclamation"></i> Note:</p>
+                            <p class="text-xs text-slate-300">You must create a free account on Character.ai to use the portal.</p>
+                        </div>
+
+                        <a href="https://character.ai/chat/zUMllV0uILNgpj72xcQS2X2p-NPu3qupW5LSVFUrPfg" target="_blank" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-bold py-4 px-6 rounded-xl transition shadow-[0_0_20px_rgba(37,99,235,0.4)] flex items-center justify-center gap-2">
+                            Enter AI Portal <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sec-listening" class="section-content">
+                <div class="mb-8">
+                    <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border border-emerald-500/30">Phase 4: Comprehension</span>
+                    <h2 class="text-3xl lg:text-4xl font-black mt-5 mb-2 tracking-tight text-white font-display">Building the ISS 🎧</h2>
+                    <p class="text-slate-400 text-lg font-medium leading-relaxed max-w-3xl">Watch the TED-Ed video about the incredible collaboration behind the International Space Station, then test your comprehension.</p>
+                </div>
+
+                <div class="bg-slate-900 rounded-3xl p-8 border border-slate-700 shadow-xl mb-10">
+                    <div class="flex flex-col md:flex-row gap-8 items-center border-b border-slate-800 pb-8 mb-8">
+                        <div class="w-full md:w-1/3 text-center">
+                            <i class="fa-brands fa-youtube text-7xl text-red-500 mb-4 drop-shadow-[0_0_15px_rgba(239,68,68,0.4)]"></i>
+                            <h3 class="font-bold text-white text-xl">TED-Ed Video</h3>
+                            <p class="text-xs text-slate-400 mt-2">The Incredible Collaboration Behind the ISS</p>
+                        </div>
+                        <div class="w-full md:w-2/3">
+                            <a href="https://ed.ted.com/lessons/the-incredible-collaboration-behind-the-international-space-station-tien-nguyen" target="_blank" class="block w-full bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-2xl p-6 text-center transition group">
+                                <span class="text-emerald-400 font-bold text-lg group-hover:text-emerald-300">Click to Open Video in New Tab <i class="fa-solid fa-external-link-alt ml-2"></i></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-xl font-black text-white mb-6 font-display"><i class="fa-solid fa-list-check text-emerald-400 mr-2"></i> Comprehension Quiz</h3>
+                        <div class="space-y-6">
+                            <!-- Q1 -->
+                            <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700">
+                                <p class="font-bold text-white mb-4">1. How many countries collaborated to build the International Space Station?</p>
+                                <div class="grid sm:grid-cols-3 gap-3" id="iss-q1">
+                                    <div class="mcq-opt rounded-lg p-3 text-center text-sm" onclick="checkMCQ('iss-q1', 0, 1)">5 countries</div>
+                                    <div class="mcq-opt rounded-lg p-3 text-center text-sm" onclick="checkMCQ('iss-q1', 1, 1)">15 countries</div>
+                                    <div class="mcq-opt rounded-lg p-3 text-center text-sm" onclick="checkMCQ('iss-q1', 2, 1)">50 countries</div>
+                                </div>
+                            </div>
+                            <!-- Q2 -->
+                            <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700">
+                                <p class="font-bold text-white mb-4">2. How was the space station constructed?</p>
+                                <div class="grid sm:grid-cols-2 gap-3" id="iss-q2">
+                                    <div class="mcq-opt rounded-lg p-3 text-center text-sm" onclick="checkMCQ('iss-q2', 0, 1)">Built completely on Earth and launched at once</div>
+                                    <div class="mcq-opt rounded-lg p-3 text-center text-sm" onclick="checkMCQ('iss-q2', 1, 1)">Built piece by piece in space over many years</div>
+                                </div>
+                            </div>
+                            <!-- Q3 -->
+                            <div class="bg-slate-800/50 p-5 rounded-xl border border-slate-700">
+                                <p class="font-bold text-white mb-4">3. Historically, the ISS project became a major symbol of global cooperation following which event?</p>
+                                <div class="grid sm:grid-cols-3 gap-3" id="iss-q3">
+                                    <div class="mcq-opt rounded-lg p-3 text-center text-sm" onclick="checkMCQ('iss-q3', 0, 0)">The end of the Cold War</div>
+                                    <div class="mcq-opt rounded-lg p-3 text-center text-sm" onclick="checkMCQ('iss-q3', 1, 0)">The Moon Landing</div>
+                                    <div class="mcq-opt rounded-lg p-3 text-center text-sm" onclick="checkMCQ('iss-q3', 2, 0)">World War II</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sec-presentation" class="section-content">
+                <div class="mb-8">
+                    <span class="bg-amber-500/20 text-amber-400 text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border border-amber-500/30">Phase 5: Final Project</span>
+                    <h2 class="text-3xl lg:text-4xl font-black mt-5 mb-2 tracking-tight text-white font-display">Oral Presentation Planner 📊</h2>
+                    <p class="text-slate-400 text-lg font-medium leading-relaxed">It's time to prepare your final presentation for this unit. Choose a topic, do some quick research, and use the blueprint below to organize your speech.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-3 gap-8 mb-10">
+                    <!-- Topics List -->
+                    <div class="lg:col-span-1 bg-slate-900 p-6 rounded-3xl border border-slate-700 shadow-md">
+                        <h3 class="font-black text-white text-xl mb-4 border-b border-slate-800 pb-2"><i class="fa-solid fa-list-ul text-amber-400 mr-2"></i> Topic Ideas</h3>
+                        <ul class="space-y-3 text-sm text-slate-300">
+                            <li class="hover:text-cyan-400 cursor-pointer transition">• Should humans live on Mars someday?</li>
+                            <li class="hover:text-cyan-400 cursor-pointer transition">• The most important space missions in history</li>
+                            <li class="hover:text-cyan-400 cursor-pointer transition">• Life inside the International Space Station</li>
+                            <li class="hover:text-cyan-400 cursor-pointer transition">• The dangers astronauts face in space</li>
+                            <li class="hover:text-cyan-400 cursor-pointer transition">• What would happen if humans disappeared?</li>
+                            <li class="hover:text-cyan-400 cursor-pointer transition">• Could aliens exist somewhere in the universe?</li>
+                            <li class="hover:text-cyan-400 cursor-pointer transition">• The future of space tourism</li>
+                            <li class="hover:text-cyan-400 cursor-pointer transition">• Black holes: space’s biggest mystery</li>
+                        </ul>
+                    </div>
+
+                    <!-- Blueprint Planner -->
+                    <div class="lg:col-span-2 space-y-6">
+                        <!-- Intro -->
+                        <div class="bg-slate-900 p-6 rounded-2xl border border-slate-700 shadow-sm relative overflow-hidden">
+                            <div class="w-1 absolute left-0 top-0 bottom-0 bg-cyan-500"></div>
+                            <h4 class="font-bold text-white mb-2 flex justify-between"><span>1. Introduction</span> <span class="text-xs text-slate-500 font-normal">Hook the audience</span></h4>
+                            <p class="text-xs text-slate-400 mb-3 italic">Phrases: "Did you know that...", "Today I'd like to talk about..."</p>
+                            <textarea class="w-full bg-slate-800 border border-slate-600 rounded-xl p-3 text-sm text-white focus:border-cyan-400 outline-none resize-none" rows="2" placeholder="Draft your intro here..."></textarea>
+                        </div>
+                        <!-- Body -->
+                        <div class="bg-slate-900 p-6 rounded-2xl border border-slate-700 shadow-sm relative overflow-hidden">
+                            <div class="w-1 absolute left-0 top-0 bottom-0 bg-fuchsia-500"></div>
+                            <h4 class="font-bold text-white mb-2 flex justify-between"><span>2. Body Paragraphs</span> <span class="text-xs text-slate-500 font-normal">2-3 Main Points</span></h4>
+                            <p class="text-xs text-slate-400 mb-3 italic">Phrases: "Firstly...", "Moving on to my next point...", "Another interesting fact is..."</p>
+                            <textarea class="w-full bg-slate-800 border border-slate-600 rounded-xl p-3 text-sm text-white focus:border-fuchsia-400 outline-none resize-none" rows="4" placeholder="Bullet points of your main arguments..."></textarea>
+                        </div>
+                        <!-- Conclusion -->
+                        <div class="bg-slate-900 p-6 rounded-2xl border border-slate-700 shadow-sm relative overflow-hidden">
+                            <div class="w-1 absolute left-0 top-0 bottom-0 bg-emerald-500"></div>
+                            <h4 class="font-bold text-white mb-2 flex justify-between"><span>3. Conclusion</span> <span class="text-xs text-slate-500 font-normal">Summary & Q&A</span></h4>
+                            <p class="text-xs text-slate-400 mb-3 italic">Phrases: "To sum up...", "Thank you for listening. Are there any questions?"</p>
+                            <textarea class="w-full bg-slate-800 border border-slate-600 rounded-xl p-3 text-sm text-white focus:border-emerald-400 outline-none resize-none" rows="2" placeholder="Draft your final thoughts..."></textarea>
+                        </div>
+                        
+                        <button class="w-full btn-primary py-3 rounded-xl font-bold" onclick="showToast('Outline saved locally!', 'success'); addXP(20);">Save Outline</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sec-final" class="section-content">
+                <div class="mb-6 flex justify-between items-end border-b border-slate-700 pb-4">
+                    <div>
+                        <span class="bg-fuchsia-500/20 text-fuchsia-400 text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full border border-fuchsia-500/30">Phase 6: Conclusion</span>
+                        <h2 class="text-3xl font-black mt-4 mb-1 text-white font-display">The Final Arena 🏁</h2>
+                        <p class="text-slate-400 font-medium">Unit 8 is complete! Prove you are ready to move on by passing this final challenge.</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900 rounded-3xl p-8 md:p-12 border border-slate-800 text-center shadow-2xl relative overflow-hidden mb-10">
+                    <div class="absolute -left-10 -top-10 opacity-5"><i class="fa-solid fa-flag-checkered text-9xl text-white"></i></div>
+                    
+                    <div class="relative z-10 w-full max-w-lg mx-auto" id="wrapup-area">
+                        <i class="fa-solid fa-meteor text-7xl text-fuchsia-500 mb-6 animate-[floatUp_3s_infinite_ease-in-out_alternate]"></i>
+                        <h3 class="text-3xl font-black text-white mb-8 font-display" id="wu-final-question">Ready for the final wrap-up?</h3>
+                        
+                        <div id="wu-final-options" class="flex flex-col gap-4">
+                            <button onclick="startWrapUp()" class="btn-secondary py-4 px-12 rounded-2xl font-black text-xl transition shadow-xl w-full">
+                                Enter the Arena <i class="fa-solid fa-play ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        // Global State
+        let totalXP = 0;
+        const navItems = document.querySelectorAll('.nav-item');
+        const sections = document.querySelectorAll('.section-content');
+
+        // Navigation Logic
+        navItems.forEach(item => { 
+            item.addEventListener('click', () => { navigateTo(item.getAttribute('data-target')); }); 
+        });
+
+        function navigateTo(targetId) {
+            navItems.forEach(nav => {
+                nav.classList.remove('active', 'bg-fuchsia-900/20', 'border-fuchsia-500/30');
+                if (nav.getAttribute('data-target') === targetId) {
+                    nav.classList.add('active');
+                }
+            });
+            sections.forEach(sec => {
+                sec.classList.remove('active');
+                if (sec.id === targetId) sec.classList.add('active');
+            });
+            document.getElementById('content-container').parentElement.scrollTo(0,0);
+        }
+
+        // XP & UI Utilities
+        function addXP(amount) {
+            totalXP += amount;
+            document.getElementById('xp-counter').innerText = totalXP;
+            document.getElementById('xp-counter-mobile').innerText = totalXP;
+            
+            const pop = document.createElement('div');
+            pop.innerText = `+${amount} XP`;
+            pop.style.position = 'fixed'; pop.style.color = '#fbbf24'; pop.style.fontWeight = '900'; pop.style.fontSize = '2.5rem'; pop.style.zIndex = '9999'; pop.style.pointerEvents = 'none';
+            pop.style.left = '50%'; pop.style.top = '50%'; pop.style.transform = 'translate(-50%, -50%)';
+            pop.style.textShadow = '0 0 10px rgba(251, 191, 36, 0.5)';
+            pop.style.animation = 'floatUp 1s forwards';
+            document.body.appendChild(pop);
+            setTimeout(() => pop.remove(), 1000);
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toast-icon');
+            const msg = document.getElementById('toast-msg');
+            
+            msg.innerText = message;
+            toast.className = `fixed bottom-5 right-5 text-white px-6 py-3 rounded-xl shadow-2xl font-bold transition-all duration-300 z-50 flex items-center gap-2 transform translate-y-0 opacity-100 border border-white/20 backdrop-blur-md`;
+            
+            if(type === 'success') { toast.classList.add('bg-emerald-600'); icon.className = 'fa-solid fa-check-circle'; } 
+            else if(type === 'error') { toast.classList.add('bg-rose-600'); icon.className = 'fa-solid fa-circle-xmark'; } 
+            else { toast.classList.add('bg-cyan-600'); icon.className = 'fa-solid fa-info-circle'; }
+            
+            setTimeout(() => { toast.classList.replace('translate-y-0', 'translate-y-20'); toast.classList.replace('opacity-100', 'opacity-0'); toast.classList.remove('bg-emerald-600', 'bg-rose-600', 'bg-cyan-600'); }, 3000);
+        }
+
+        // Section 2: Indirect Questions Checker
+        function checkDialogue(id, ans1, ans2 = "") {
+            const input = document.getElementById(`dlg${id}-input`);
+            const fb = document.getElementById(`dlg${id}-fb`);
+            const val = input.value.toLowerCase().replace(/[?.!]/g, "").trim();
+            
+            fb.classList.remove('hidden');
+            
+            if(val === ans1 || val === ans2) {
+                fb.className = "mt-2 p-3 rounded-lg text-sm font-bold bg-emerald-900/40 text-emerald-400 border border-emerald-500 animate-[fadeIn_0.3s]";
+                fb.innerHTML = `✅ Perfect!`;
+                input.classList.add('border-emerald-500', 'text-emerald-400');
+                input.classList.remove('border-rose-500');
+                addXP(10);
+            } else if (val.length < 5) {
+                fb.className = "mt-2 p-3 rounded-lg text-sm font-bold bg-amber-900/40 text-amber-400 border border-amber-500 animate-[fadeIn_0.3s]";
+                fb.innerHTML = `⚠️ Please type a full answer.`;
+            } else {
+                fb.className = "mt-2 p-3 rounded-lg text-sm font-bold bg-rose-900/40 text-rose-400 border border-rose-500 animate-[fadeIn_0.3s]";
+                fb.innerHTML = `❌ Check word order! Suggested: <em>${ans1}</em>`;
+                input.classList.add('border-rose-500');
+            }
+        }
+
+        // Section 3: Roleplay Selector
+        function selectRoleplay(id) {
+            showToast(`Scenario ${id} selected! Prepare your lines.`, 'success');
+        }
+
+        // Section 5: Multiple Choice Question Checker (Listening)
+        function checkMCQ(containerId, selectedIndex, correctIndex) {
+            const container = document.getElementById(containerId);
+            const options = container.querySelectorAll('.mcq-opt');
+            
+            // Prevent multiple answers
+            if(container.getAttribute('data-answered') === 'true') return;
+            container.setAttribute('data-answered', 'true');
+
+            options.forEach((opt, i) => {
+                opt.classList.add('pointer-events-none');
+                if(i === correctIndex) {
+                    opt.classList.add('correct');
+                } else if(i === selectedIndex) {
+                    opt.classList.add('wrong');
+                } else {
+                    opt.classList.add('opacity-50');
+                }
+            });
+
+            if(selectedIndex === correctIndex) {
+                addXP(15);
+                showToast("Correct!", "success");
+            } else {
+                showToast("Incorrect, watch the video carefully!", "error");
+            }
+        }
+
+        // Section 7: Final Arena Wrap-up
+        const wrapUpQuestions = [
+            { q: "Which is the correct indirect question?", opts: ["Could you tell me where is the station?", "Could you tell me where the station is?", "Could you tell me where does the station be?"], ans: 1 },
+            { q: "If you want to introduce your presentation topic, what phrase is best?", opts: ["Today I'd like to talk about...", "To sum up...", "Another interesting fact is..."], ans: 0 },
+            { q: "Change to indirect: 'What time does the launch start?'", opts: ["Do you know what time does the launch start?", "Do you know what time the launch start?", "Do you know what time the launch starts?"], ans: 2 },
+            { q: "The ISS is a symbol of global cooperation that started after...", opts: ["The Cold War", "World War 1", "The Mars Landing"], ans: 0 },
+            { q: "Which phrase is best for concluding a presentation?", opts: ["Moving on to my next point...", "Thank you for listening. Are there any questions?", "Firstly..."], ans: 1 }
+        ];
+
+        let finalQ = 0;
+
+        function startWrapUp() { finalQ = 0; renderWrapUpQuestion(); }
+
+        function renderWrapUpQuestion() {
+            const area = document.getElementById('wrapup-area');
+            if (finalQ >= wrapUpQuestions.length) {
+                area.innerHTML = `
+                    <div class="animate-[fadeIn_0.5s]">
+                        <i class="fa-solid fa-user-astronaut text-8xl text-cyan-400 mb-6 drop-shadow-[0_0_20px_rgba(6,182,212,0.6)]"></i>
+                        <h3 class="text-4xl font-black text-white mb-4 font-display">Unit 8 Complete!</h3>
+                        <p class="text-slate-300 text-lg mb-8">You survived outer space and mastered indirect questions.</p>
+                        <button onclick="finishClass()" class="btn-primary py-4 px-12 rounded-full font-black text-xl shadow-lg transform transition hover:scale-105 inline-block w-full">
+                            Claim 100 XP <i class="fa-solid fa-star ml-2"></i>
+                        </button>
+                    </div>`;
+                return;
+            }
+
+            const data = wrapUpQuestions[finalQ];
+            let btnHTML = '';
+            data.opts.forEach((opt, i) => {
+                btnHTML += `<button onclick="checkWrapUp(${i})" class="w-full text-left bg-slate-800 hover:bg-slate-700 text-white font-medium py-4 px-6 rounded-2xl transition border border-slate-700 shadow-sm text-lg wu-opt-btn">${opt}</button>`;
+            });
+
+            area.innerHTML = `
+                <div class="mb-8 text-left animate-[fadeIn_0.3s]">
+                    <span class="bg-fuchsia-600 text-white text-xs font-black px-3 py-1 rounded uppercase tracking-widest mb-4 inline-block">Final Challenge ${finalQ + 1} of ${wrapUpQuestions.length}</span>
+                    <h3 class="text-2xl font-medium text-white">${data.q}</h3>
+                </div>
+                <div class="flex flex-col gap-3" id="wu-options-container">${btnHTML}</div>
+            `;
+        }
+
+        function checkWrapUp(guessIndex) {
+            const data = wrapUpQuestions[finalQ];
+            const container = document.getElementById('wu-options-container');
+            const buttons = container.querySelectorAll('.wu-opt-btn');
+            
+            buttons.forEach((btn, i) => {
+                btn.disabled = true;
+                btn.classList.remove('hover:bg-slate-700');
+                if (i === data.ans) {
+                    btn.classList.add('!bg-emerald-600', '!border-emerald-500');
+                } else if (i === guessIndex) {
+                    btn.classList.add('!bg-rose-600', '!border-rose-500');
+                } else {
+                    btn.classList.add('opacity-50');
+                }
+            });
+
+            const fbBox = document.createElement('div');
+            const isCorrect = (guessIndex === data.ans);
+            fbBox.className = `mt-4 p-5 rounded-2xl text-left border animate-[fadeIn_0.3s] ${isCorrect ? 'bg-emerald-900/50 border-emerald-500 text-emerald-100' : 'bg-rose-900/50 border-rose-500 text-rose-100'}`;
+            
+            fbBox.innerHTML = `
+                <p class="font-black text-lg mb-2">${isCorrect ? '✅ Correct!' : '❌ Incorrect.'}</p>
+                <button onclick="nextWrapUp()" class="mt-2 bg-white text-slate-900 hover:bg-slate-200 font-bold py-2 px-6 rounded-xl shadow transition w-full md:w-auto">Next <i class="fa-solid fa-arrow-right ml-2"></i></button>
+            `;
+            
+            container.appendChild(fbBox);
+            if (isCorrect) addXP(10);
+        }
+
+        function nextWrapUp() {
+            finalQ++;
+            renderWrapUpQuestion();
+        }
+
+        function finishClass() {
+            addXP(100);
+            document.body.innerHTML += `
+            <div class="fixed inset-0 bg-slate-950/95 z-50 flex items-center justify-center p-4 backdrop-blur-md" onclick="this.remove()">
+                <div class="bg-slate-900 border border-cyan-500/50 rounded-3xl p-12 text-center max-w-lg animate-[fadeIn_0.5s] shadow-[0_0_50px_rgba(6,182,212,0.3)] relative overflow-hidden">
+                    <i class="fa-solid fa-globe absolute -left-10 -bottom-10 text-9xl opacity-10 text-cyan-400"></i>
+                    <i class="fa-solid fa-medal text-8xl text-amber-400 mb-8 drop-shadow-lg relative z-10"></i>
+                    <h2 class="text-4xl font-black text-white mb-4 tracking-tight font-display relative z-10">Unit 8 Finished!</h2>
+                    <p class="text-slate-300 font-medium text-lg mb-4 relative z-10">You earned a total of <span class="font-black text-cyan-400">${totalXP} XP</span> today.</p>
+                    <p class="text-slate-400 font-medium relative z-10">Congratulations on mastering space vocabulary, alternate histories, and indirect questions!</p>
+                    <p class="text-xs text-slate-500 mt-8 uppercase tracking-widest font-bold relative z-10">(Click anywhere to close)</p>
+                </div>
+            </div>`;
+        }
+
+        // Initialize components
+        window.addEventListener('DOMContentLoaded', () => {
+            navigateTo('sec-overview');
+        });
+    </script>
+</body>
+</html>
